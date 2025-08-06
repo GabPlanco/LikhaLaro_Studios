@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    private PlayerControls playerControls;
+    private PlayerControls.OnFeetActions onFeet;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        playerControls = new PlayerControls();
+        onFeet = playerControls.OnFeet;
         
     }
 
@@ -14,5 +19,15 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        onFeet.Enable();
+    }
+
+    private void OnDisable()
+    {
+        onFeet.Disable();
     }
 }
