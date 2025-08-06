@@ -122,92 +122,114 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""ce14d4a6-aefb-4aad-95d8-3b092017852e"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""2c3747b6-492d-469d-906c-edbcd7dc63f8"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WASD"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""bb743463-cf76-4a02-b042-2950d0108cdb"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""WASD"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""a02bdff3-99e5-4c40-9795-1e6636ceafc2"",
+                    ""name"": ""down"",
+                    ""id"": ""0f9e50e3-8d92-4cc7-b808-5b11a1f44472"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""WASD"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""549ad611-fae9-4bea-a3db-59477201b632"",
+                    ""name"": ""left"",
+                    ""id"": ""e96eb48e-865d-4072-a87e-d2026afd5cae"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""WASD"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""b3d2421b-7700-43ec-b3b7-914d0ed98b10"",
+                    ""name"": ""right"",
+                    ""id"": ""8d0e5656-1803-46bc-988c-36c64bc4d1d4"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""WASD"",
                     ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""77636de8-0cba-4f63-9f71-57980c353523"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Joystick"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""224a6030-e6f2-44ed-8a09-f3bff0254c72"",
+                    ""name"": ""up"",
+                    ""id"": ""b1450d69-6dd7-4e6e-bece-6c3d38d89ae0"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Joystick"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""375cfdd9-e9d4-41cf-a3c4-d3070774d666"",
-                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""name"": ""down"",
+                    ""id"": ""f2978690-f958-493e-a6a7-efbce8fddef3"",
+                    ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Joystick"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""b8956959-5b1c-4ab1-99a0-fc493bc32fd3"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""name"": ""left"",
+                    ""id"": ""10717fe4-187d-445f-9f39-79d9553bbf5e"",
+                    ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Joystick"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""1385826e-1c58-44f6-8bc2-8e828c7654d1"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""name"": ""right"",
+                    ""id"": ""083c293f-a6d4-46fb-9142-86c4e0302187"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Joystick"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
