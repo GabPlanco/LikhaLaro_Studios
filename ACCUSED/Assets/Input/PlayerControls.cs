@@ -93,18 +93,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""0518f3b1-1a7f-4453-9ae5-c10af0649d4e"",
             ""actions"": [
                 {
-                    ""name"": ""WASD"",
+                    ""name"": ""Walk"",
                     ""type"": ""Value"",
                     ""id"": ""2ca087a5-fc28-45de-a287-b5e57a992de5"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Joystick"",
-                    ""type"": ""Value"",
-                    ""id"": ""78268544-9ad7-4297-87f5-1254af2dc3e7"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -117,18 +108,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""0f2b424e-718b-4edc-88db-d58f0edbc749"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""WASD"",
                     ""id"": ""2c3747b6-492d-469d-906c-edbcd7dc63f8"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Walk"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -139,7 +139,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -150,7 +150,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -161,7 +161,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -172,62 +172,62 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""77636de8-0cba-4f63-9f71-57980c353523"",
+                    ""name"": ""Joystick"",
+                    ""id"": ""a995de22-15da-46f6-82b4-dbfa45488add"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Joystick"",
+                    ""action"": ""Walk"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""b1450d69-6dd7-4e6e-bece-6c3d38d89ae0"",
+                    ""id"": ""8a69d533-b0e8-4ac6-983d-336421e1f2d1"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Joystick"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""f2978690-f958-493e-a6a7-efbce8fddef3"",
-                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""id"": ""ec9dbbdf-da46-4e1d-b9c8-cd010045eb02"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Joystick"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""10717fe4-187d-445f-9f39-79d9553bbf5e"",
-                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""id"": ""a7b01e77-8178-4cc9-ab61-fb4468b645f7"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Joystick"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""083c293f-a6d4-46fb-9142-86c4e0302187"",
-                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""id"": ""62570893-3c67-4a6c-9e41-ab08c5d7bfff"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Joystick"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -252,6 +252,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f25c143-b5bf-4c0f-b871-0243426921a2"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -260,9 +271,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
 }");
         // OnFeet
         m_OnFeet = asset.FindActionMap("OnFeet", throwIfNotFound: true);
-        m_OnFeet_WASD = m_OnFeet.FindAction("WASD", throwIfNotFound: true);
-        m_OnFeet_Joystick = m_OnFeet.FindAction("Joystick", throwIfNotFound: true);
+        m_OnFeet_Walk = m_OnFeet.FindAction("Walk", throwIfNotFound: true);
         m_OnFeet_Jump = m_OnFeet.FindAction("Jump", throwIfNotFound: true);
+        m_OnFeet_Look = m_OnFeet.FindAction("Look", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -343,9 +354,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // OnFeet
     private readonly InputActionMap m_OnFeet;
     private List<IOnFeetActions> m_OnFeetActionsCallbackInterfaces = new List<IOnFeetActions>();
-    private readonly InputAction m_OnFeet_WASD;
-    private readonly InputAction m_OnFeet_Joystick;
+    private readonly InputAction m_OnFeet_Walk;
     private readonly InputAction m_OnFeet_Jump;
+    private readonly InputAction m_OnFeet_Look;
     /// <summary>
     /// Provides access to input actions defined in input action map "OnFeet".
     /// </summary>
@@ -358,17 +369,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public OnFeetActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "OnFeet/WASD".
+        /// Provides access to the underlying input action "OnFeet/Walk".
         /// </summary>
-        public InputAction @WASD => m_Wrapper.m_OnFeet_WASD;
-        /// <summary>
-        /// Provides access to the underlying input action "OnFeet/Joystick".
-        /// </summary>
-        public InputAction @Joystick => m_Wrapper.m_OnFeet_Joystick;
+        public InputAction @Walk => m_Wrapper.m_OnFeet_Walk;
         /// <summary>
         /// Provides access to the underlying input action "OnFeet/Jump".
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_OnFeet_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFeet/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_OnFeet_Look;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -395,15 +406,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_OnFeetActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_OnFeetActionsCallbackInterfaces.Add(instance);
-            @WASD.started += instance.OnWASD;
-            @WASD.performed += instance.OnWASD;
-            @WASD.canceled += instance.OnWASD;
-            @Joystick.started += instance.OnJoystick;
-            @Joystick.performed += instance.OnJoystick;
-            @Joystick.canceled += instance.OnJoystick;
+            @Walk.started += instance.OnWalk;
+            @Walk.performed += instance.OnWalk;
+            @Walk.canceled += instance.OnWalk;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         /// <summary>
@@ -415,15 +426,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="OnFeetActions" />
         private void UnregisterCallbacks(IOnFeetActions instance)
         {
-            @WASD.started -= instance.OnWASD;
-            @WASD.performed -= instance.OnWASD;
-            @WASD.canceled -= instance.OnWASD;
-            @Joystick.started -= instance.OnJoystick;
-            @Joystick.performed -= instance.OnJoystick;
-            @Joystick.canceled -= instance.OnJoystick;
+            @Walk.started -= instance.OnWalk;
+            @Walk.performed -= instance.OnWalk;
+            @Walk.canceled -= instance.OnWalk;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         /// <summary>
@@ -465,19 +476,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IOnFeetActions
     {
         /// <summary>
-        /// Method invoked when associated input action "WASD" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Walk" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnWASD(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Joystick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJoystick(InputAction.CallbackContext context);
+        void OnWalk(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -485,5 +489,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
     }
 }
