@@ -256,7 +256,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0f25c143-b5bf-4c0f-b871-0243426921a2"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""path"": ""<Touchscreen>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
