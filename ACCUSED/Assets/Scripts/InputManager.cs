@@ -7,7 +7,7 @@ using UnityEngine.LowLevel;
 public class InputManager : MonoBehaviour
 {
     private PlayerControls playerControls;
-    private PlayerControls.OnFeetActions onFeet;
+    public PlayerControls.OnFeetActions onFeet;
 
     private PlayerMovement movement;
     private PlayerLook look;
