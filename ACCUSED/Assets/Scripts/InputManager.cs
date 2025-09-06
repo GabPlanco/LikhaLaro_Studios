@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevel;
 
-public class InputManager : MonoBehaviour
+public class InputManager : NetworkBehaviour
 {
     private PlayerControls playerControls;
     public PlayerControls.OnFeetActions onFeet;
@@ -27,6 +28,8 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+
         foreach (Touch touch in Input.touches)
         {
             // Skip if touch is inside joystick area

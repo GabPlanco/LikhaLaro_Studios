@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -20,11 +21,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
+
         isGrounded = controller.isGrounded;
     }
 
     public void ProcessMove (Vector2 input)
     {
+        if (!IsOwner) return;
+
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
         moveDirection.z = input.y;
@@ -40,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
+        if (!IsOwner) return;
+
         if (isGrounded)
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);

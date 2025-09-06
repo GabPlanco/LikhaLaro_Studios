@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.Netcode;
 
-public class PlayerUI : MonoBehaviour
+public class PlayerUI : NetworkBehaviour
 {
     [SerializeField] private TextMeshProUGUI displayText;
     
@@ -16,6 +17,8 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     public void UpdateText(string promptMessage)
     {
+        if (!IsOwner) return;
+
         displayText.text = promptMessage;
     }
 }
