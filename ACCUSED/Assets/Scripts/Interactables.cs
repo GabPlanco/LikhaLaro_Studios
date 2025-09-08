@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public abstract class Interactables : MonoBehaviour
+public abstract class Interactables : NetworkBehaviour
 {
     // message na lumalabas pag nakatingin sa gamit
     public string promptMessage;
