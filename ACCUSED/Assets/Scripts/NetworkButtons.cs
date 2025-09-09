@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NetworkButtons : MonoBehaviour
@@ -20,6 +21,7 @@ public class NetworkButtons : MonoBehaviour
                 // ? Update UI once relay is created
                 codeText.text = createdCode;
             });
+            SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
             // NetworkManager.Singleton.StartHost();
         });
         /* serverBtn.onClick.AddListener(() => {
@@ -35,6 +37,7 @@ public class NetworkButtons : MonoBehaviour
                     codeText.text = joinCode;
                 }
             });
+            SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
             // NetworkManager.Singleton.StartClient();
         });
     }
