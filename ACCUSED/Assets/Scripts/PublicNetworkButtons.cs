@@ -6,19 +6,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class NetworkButtons : MonoBehaviour
+public class PublicNetworkButtons : MonoBehaviour
 {
     [SerializeField] private Button hostBtn;
     // [SerializeField] private Button serverBtn;
     [SerializeField] private Button clientBtn;
-    [SerializeField] private TMP_InputField code;
 
-    private void Awake() {
+    private void Awake()
+    {
         hostBtn.onClick.AddListener(() => {
             SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
-            TestRelay.CreateRelay(createdCode =>
+            TestLobby.CreateLobbyAndRelay(createdCode =>
             {
-                // ? Update UI once relay is created
                 NetworkCode.CodeText = createdCode;
             });
             // NetworkManager.Singleton.StartHost();
@@ -28,14 +27,9 @@ public class NetworkButtons : MonoBehaviour
         }); */
         clientBtn.onClick.AddListener(() => {
             SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
-            string joinCode = code.text;
-
-            TestRelay.JoinRelay(joinCode, onJoined =>
+            TestLobby.QuickJoinLobby(onJoined =>
             {
-                if (onJoined == true)
-                {
-                    NetworkCode.CodeText = joinCode;
-                }
+                if (onJoined) Debug.Log("Joined automatically!");
             });
             // NetworkManager.Singleton.StartClient();
         });
