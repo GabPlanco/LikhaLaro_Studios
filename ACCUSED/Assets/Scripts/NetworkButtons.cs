@@ -27,8 +27,9 @@ public class NetworkButtons : MonoBehaviour
             NetworkManager.Singleton.StartServer();
         }); */
         clientBtn.onClick.AddListener(() => {
-            SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
             string joinCode = code.text;
+            SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
+            
 
             TestRelay.JoinRelay(joinCode, onJoined =>
             {
