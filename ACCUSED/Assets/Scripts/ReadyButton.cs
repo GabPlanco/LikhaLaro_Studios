@@ -1,6 +1,7 @@
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
 public class ReadyButton : MonoBehaviour
 {
@@ -8,31 +9,54 @@ public class ReadyButton : MonoBehaviour
 
     private void Start()
     {
+        // Hide button by default
         readyBtn.gameObject.SetActive(false);
 
-        readyBtn.onClick.AddListener(() =>
+        readyBtn.onClick.AddListener(OnReadyClicked);
+
+        // Only the host should control this
+        if (NetworkManager.Singleton.IsHost)
         {
-            if (NetworkManager.Singleton.IsHost)
-            {
-                // Host moves everyone to the new scene
-                NetworkManager.Singleton.SceneManager.LoadScene("GameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
-            }
-        });
+            NetworkManager.Singleton.OnClientConnectedCallback += OnPlayerCountChanged;
+            NetworkManager.Singleton.OnClientDisconnectCallback += OnPlayerCountChanged;
+
+            // Initial check
+            OnPlayerCountChanged(0);
+        }
     }
 
-    private void Update()
+    private void OnDestroy()
+    {
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnPlayerCountChanged;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnPlayerCountChanged;
+        }
+    }
+
+    private void OnPlayerCountChanged(ulong _)
+    {
+        int playerCount = NetworkManager.Singleton.ConnectedClientsList.Count;
+        Debug.Log("Player count: " + playerCount);
+        readyBtn.gameObject.SetActive(playerCount >= 2); // show only if at least 2 players
+    }
+
+    public void OnReadyClicked()
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            int playerCount = NetworkManager.Singleton.ConnectedClientsList.Count;
+            // Despawn existing players
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+            {
+                var player = client.PlayerObject;
+                if (player != null && player.IsSpawned)
+                {
+                    player.Despawn();
+                }
+            }
 
-            // Show Ready button only when at least 4 players are in
-            readyBtn.gameObject.SetActive(playerCount >= 4);
-        }
-        else
-        {
-            // Clients never see the Ready button
-            readyBtn.gameObject.SetActive(false);
+            // Host triggers scene change for everyone
+            NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -38,7 +39,6 @@ public class TestRelay : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
             /* older method
-            
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(
                 allocation.RelayServer.IpV4,
                 (ushort)allocation.RelayServer.Port,
@@ -46,7 +46,6 @@ public class TestRelay : MonoBehaviour
                 allocation.Key,
                 allocation.ConnectionData
             );
-
             */
 
             NetworkManager.Singleton.StartHost();
@@ -54,7 +53,8 @@ public class TestRelay : MonoBehaviour
             // ? Send back the code to whoever called this method
             onCreated?.Invoke(createdCode);
 
-        } catch (RelayServiceException e)
+        }
+        catch (RelayServiceException e)
         {
             Debug.Log(e);
         }
@@ -82,9 +82,7 @@ public class TestRelay : MonoBehaviour
             );
             */
 
-            NetworkManager.Singleton.StartClient();
-
-            // ? Hook client connect callback
+            // Subscribe BEFORE starting client
             NetworkManager.Singleton.OnClientConnectedCallback += (id) =>
             {
                 if (id == NetworkManager.Singleton.LocalClientId)
@@ -94,7 +92,20 @@ public class TestRelay : MonoBehaviour
                 }
             };
 
-        } catch (RelayServiceException e) {
+            NetworkManager.Singleton.OnClientDisconnectCallback += (id) =>
+            {
+                if (id == NetworkManager.Singleton.LocalClientId)
+                {
+                    Debug.LogWarning("Failed to join relay or got disconnected!");
+                    onJoined?.Invoke(false);
+                }
+            };
+
+            NetworkManager.Singleton.StartClient();
+
+        }
+        catch (RelayServiceException e)
+        {
             Debug.Log(e);
         }
     }

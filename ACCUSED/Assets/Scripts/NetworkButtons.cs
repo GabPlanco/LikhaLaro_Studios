@@ -13,11 +13,13 @@ public class NetworkButtons : MonoBehaviour
     [SerializeField] private Button clientBtn;
     [SerializeField] private TMP_InputField code;
 
-    private void Awake() {
+    private void Awake()
+    {
         hostBtn.onClick.AddListener(() => {
-            SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
             TestRelay.CreateRelay(createdCode =>
             {
+                NetworkManager.Singleton.SceneManager.LoadScene("PrivateServer", LoadSceneMode.Single); // Replace with your actual scene name
+
                 // ? Update UI once relay is created
                 NetworkCode.CodeText = createdCode;
             });
@@ -28,13 +30,13 @@ public class NetworkButtons : MonoBehaviour
         }); */
         clientBtn.onClick.AddListener(() => {
             string joinCode = code.text;
-            SceneManager.LoadScene("PrivateServer"); // Replace with your actual scene name
-            
+
 
             TestRelay.JoinRelay(joinCode, onJoined =>
             {
                 if (onJoined == true)
                 {
+                    NetworkManager.Singleton.SceneManager.LoadScene("PrivateServer", LoadSceneMode.Single); // Replace with your actual scene name
                     NetworkCode.CodeText = joinCode;
                 }
             });
