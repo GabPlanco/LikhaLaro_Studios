@@ -38,7 +38,7 @@ public class ReadyButton : MonoBehaviour
     {
         int playerCount = NetworkManager.Singleton.ConnectedClientsList.Count;
         Debug.Log("Player count: " + playerCount);
-        readyBtn.gameObject.SetActive(playerCount >= 2); // show only if at least 2 players
+        readyBtn.gameObject.SetActive(playerCount >= 3); // show only if at least 3 players
     }
 
     public void OnReadyClicked()
