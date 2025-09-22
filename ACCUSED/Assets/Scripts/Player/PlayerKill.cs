@@ -51,11 +51,11 @@ public class PlayerKill : Interactables
 
         if (!enabled) return;
 
-        // Only assassins can kill
+        /* // Only assassins can kill
         if (roleComponent == null || roleComponent.Role != PlayerRole.Assassin)
         {
             return;
-        }
+        } */
 
         // Get the target's NetworkObjectId
         ulong targetId = GetComponent<NetworkObject>().NetworkObjectId;
@@ -72,8 +72,15 @@ public class PlayerKill : Interactables
             // Prevent killing self accidentally
             if (targetObj.OwnerClientId != rpcParams.Receive.SenderClientId)
             {
-                Debug.Log($"Killing player {targetId}");
-                targetObj.Despawn();
+                // Debug.Log($"Killing player {targetId}");
+                // targetObj.Despawn();
+
+                var state = targetObj.GetComponent<PlayerState>();
+                if (state != null && !state.IsDead.Value)
+                {
+                    Debug.Log($"Marking player {targetId} as dead");
+                    state.IsDead.Value = true;
+                }
             }
         }
     }

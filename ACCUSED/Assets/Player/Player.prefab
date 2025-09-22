@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6890558389606894745}
   - component: {fileID: -1794299170974540622}
   - component: {fileID: -6989338121789889050}
+  - component: {fileID: -2787565547472441575}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -74,7 +75,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7446b273674fce24aa4660908a81b545, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1363090218
+  GlobalObjectIdHash: 1764956540
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -297,6 +298,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   innocentDisplay: {fileID: 5307149089828677185}
   assassinDisplay: {fileID: 3261941095016570370}
+--- !u!114 &-2787565547472441575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054760232943050582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45aa10e7d723d04e9c826aa453ec205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveMaterial: {fileID: 2100000, guid: 7446b273674fce24aa4660908a81b545, type: 2}
+  deadMaterial: {fileID: 2100000, guid: 5c0f72f91114085409ac0398aff391aa, type: 2}
+  ghostMaterial: {fileID: 2100000, guid: 4af451d3a0e43224f80af69a35a8fa36, type: 2}
+  IsDead:
+    m_InternalValue: 0
 --- !u!1 &4520063881508223723
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,6 +988,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Display Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035295377754755852, guid: d4d867a22cc156942bd257ba8e23f8cf,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

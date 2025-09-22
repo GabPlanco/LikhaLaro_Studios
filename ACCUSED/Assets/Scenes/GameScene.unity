@@ -1725,7 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b30496b564b4449a474486f12450b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Pakyu Gabo
+  promptMessage: Open Door
   door: {fileID: 943560979}
 --- !u!114 &1235219049
 MonoBehaviour:
