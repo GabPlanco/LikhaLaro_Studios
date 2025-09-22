@@ -45,6 +45,9 @@ public class ReadyButton : MonoBehaviour
     {
         if (NetworkManager.Singleton.IsHost)
         {
+            // Host triggers loading scene first
+            NetworkManager.Singleton.SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);
+
             // Despawn existing players
             foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
             {

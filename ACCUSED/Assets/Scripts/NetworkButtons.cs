@@ -16,6 +16,7 @@ public class NetworkButtons : MonoBehaviour
     private void Awake()
     {
         hostBtn.onClick.AddListener(() => {
+            SceneManager.LoadScene("LoadingScene");
             TestRelay.CreateRelay(createdCode =>
             {
                 NetworkManager.Singleton.SceneManager.LoadScene("PrivateServer", LoadSceneMode.Single); // Replace with your actual scene name
@@ -29,6 +30,7 @@ public class NetworkButtons : MonoBehaviour
             NetworkManager.Singleton.StartServer();
         }); */
         clientBtn.onClick.AddListener(() => {
+            SceneManager.LoadScene("LoadingScene");
             string joinCode = code.text;
 
 

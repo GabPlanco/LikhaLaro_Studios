@@ -15,6 +15,7 @@ public class PublicNetworkButtons : MonoBehaviour
     private void Awake()
     {
         hostBtn.onClick.AddListener(() => {
+            SceneManager.LoadScene("LoadingScene");
             TestLobby.CreateLobbyAndRelay(createdCode =>
             {
                 NetworkManager.Singleton.SceneManager.LoadScene("PrivateServer", LoadSceneMode.Single); // Replace with your actual scene name
@@ -26,6 +27,7 @@ public class PublicNetworkButtons : MonoBehaviour
             NetworkManager.Singleton.StartServer();
         }); */
         clientBtn.onClick.AddListener(() => {
+            SceneManager.LoadScene("LoadingScene");
             TestLobby.QuickJoinLobby(onJoined =>
             {
                 NetworkManager.Singleton.SceneManager.LoadScene("PrivateServer", LoadSceneMode.Single); // Replace with your actual scene name
