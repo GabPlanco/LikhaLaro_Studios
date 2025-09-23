@@ -40,6 +40,13 @@ public class PlayerState : NetworkBehaviour
         // Called on every client when this player's IsDead changes.
         // Update appearance for the local viewer.
         ApplyVisibilityForLocalViewer(newValue);
+
+        // If this is the *local viewer* that just died,
+        // reapply visibility for all other players too
+        if (IsOwner && newValue == true)
+        {
+            ReapplyVisibilityForAllPlayers();
+        }
     }
 
     // Decide what the local viewer should see for THIS target player.
@@ -61,9 +68,24 @@ public class PlayerState : NetworkBehaviour
             return;
         } */
 
-        if (targetIsDead)
+        if (!viewerIsDead)
         {
-            if (viewerIsDead)
+            if (targetIsDead)
+            {
+                // Viewer is alive ? hide target completely
+                SetMaterial(deadMaterial);
+                // SetRenderersActive(false);
+            }
+            else
+            {
+                // Target is alive ? show normally to everyone
+                SetMaterial(aliveMaterial);
+                // SetRenderersActive(true);
+            }
+        }
+        else
+        {
+            if (targetIsDead)
             {
                 // Viewer is dead ? show target but faded
                 SetMaterial(ghostMaterial);
@@ -71,25 +93,18 @@ public class PlayerState : NetworkBehaviour
             }
             else
             {
-                // Viewer is alive ? hide target completely
-                SetMaterial(deadMaterial);
-                // SetRenderersActive(false);
+                // Target is alive ? show normally to everyone
+                SetMaterial(aliveMaterial);
+                // SetRenderersActive(true);
             }
-        }
-        else
-        {
-            // Target is alive ? show normally to everyone
-            SetMaterial(aliveMaterial);
-            // SetRenderersActive(true);
         }
     }
 
-    // Utility: enable/disable renderers
-    private void SetRenderersActive(bool active)
+    private void ReapplyVisibilityForAllPlayers()
     {
-        foreach (var r in renderers)
+        foreach (var obj in FindObjectsOfType<PlayerState>())
         {
-            if (r != null) r.enabled = active;
+            obj.ApplyVisibilityForLocalViewer(obj.IsDead.Value);
         }
     }
 
@@ -101,7 +116,16 @@ public class PlayerState : NetworkBehaviour
         }
     }
 
-    /* 
+    /*
+    // Utility: enable/disable renderers
+    private void SetRenderersActive(bool active)
+    {
+        foreach (var r in renderers)
+        {
+            if (r != null) r.enabled = active;
+        }
+    }
+
     // Utility: set alpha for all renderers (works for Standard shader; see note)
     private void SetRenderersAlpha(float alpha)
     {
