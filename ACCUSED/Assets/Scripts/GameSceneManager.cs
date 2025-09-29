@@ -7,11 +7,6 @@ public class GameSceneManager : NetworkBehaviour
 {
     public GameObject playerPrefab;
 
-    /* public override void OnNetworkSpawn()
-    {
-        SpawnPlayers();
-    } */
-
     private void Start()
     {
         // Ensure this only runs in GameScene
@@ -29,7 +24,6 @@ public class GameSceneManager : NetworkBehaviour
                 var spawnPos = GetSpawnPoint();
                 var player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
                 var playerObj = player.GetComponent<NetworkObject>();
-
                 playerObj.SpawnAsPlayerObject(clientId);
 
                 // Assign role

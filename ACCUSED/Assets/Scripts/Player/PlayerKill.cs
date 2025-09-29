@@ -51,13 +51,11 @@ public class PlayerKill : Interactables
 
         if (!enabled) return;
 
-        // Only assassins can kill
-
-        var interactor = NetworkManager.Singleton.LocalClient?.PlayerObject;
-        if (interactor == null) return;
-
-        var roleComp = interactor.GetComponent<PlayerRoleComponent>();
-        if (roleComp == null || roleComp.Role != PlayerRole.Assassin) return;
+        /* // Only assassins can kill
+        if (roleComponent == null || roleComponent.Role != PlayerRole.Assassin)
+        {
+            return;
+        } */
 
         // Get the target's NetworkObjectId
         ulong targetId = GetComponent<NetworkObject>().NetworkObjectId;

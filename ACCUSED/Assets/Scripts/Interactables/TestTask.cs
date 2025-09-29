@@ -7,11 +7,8 @@ public class TestTask : Interactables
 
     protected override void Interact()
     {
-        var interactor = NetworkManager.Singleton.LocalClient?.PlayerObject;
-        if (interactor == null) return;
-
-        var roleComp = interactor.GetComponent<PlayerRoleComponent>();
-        if (roleComp == null || roleComp.Role != PlayerRole.Innocent) return;
+        // var role = GetComponent<PlayerRoleComponent>();
+        // if (role == null || role.Role != PlayerRole.Innocent) return;
 
         // Tell server we completed this task
         GameProgressManager.Instance?.AddProgressServerRpc(progressValue);

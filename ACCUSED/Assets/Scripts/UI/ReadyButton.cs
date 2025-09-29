@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using System.Threading.Tasks;
 
 public class ReadyButton : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class ReadyButton : MonoBehaviour
         readyBtn.gameObject.SetActive(playerCount >= 1); // show only if at least 1 players
     }
 
-    public void OnReadyClicked()
+    public async void OnReadyClicked()
     {
         // Host triggers loading scene first
         // SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);
@@ -57,6 +58,8 @@ public class ReadyButton : MonoBehaviour
                     player.Despawn();
                 }
             }
+
+            await Task.Yield();
 
             // Host triggers scene change for everyone
             NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
