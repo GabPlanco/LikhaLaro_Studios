@@ -127,10 +127,11 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 29bd38ec9e170ca41bb10def908e67e6, type: 2}
+  m_Motion: {fileID: 8232505889388236093, guid: b641fcb0e04ec8245bbdf984a414aad9,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: 
-  m_MirrorParameter: 
+  m_MirrorParameter: NaglalakadBa
   m_CycleOffsetParameter: 
   m_TimeParameter: 
 --- !u!1101 &7322696921860917895
