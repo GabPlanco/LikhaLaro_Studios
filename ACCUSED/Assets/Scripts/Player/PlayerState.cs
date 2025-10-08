@@ -74,13 +74,14 @@ public class PlayerState : NetworkBehaviour
             {
                 // Viewer is alive ? hide target completely
                 SetMaterial(deadMaterial);
-                // SetRenderersActive(false);
+                SetRenderersActive(false);
             }
             else
             {
                 // Target is alive ? show normally to everyone
                 SetMaterial(aliveMaterial);
-                // SetRenderersActive(true);
+                SetRenderersActive(true);
+                SetRenderersAlpha(1f);
             }
         }
         else
@@ -89,13 +90,15 @@ public class PlayerState : NetworkBehaviour
             {
                 // Viewer is dead ? show target but faded
                 SetMaterial(ghostMaterial);
-                // SetRenderersActive(true);
+                SetRenderersActive(true);
+                SetRenderersAlpha(0.3f);
             }
             else
             {
                 // Target is alive ? show normally to everyone
                 SetMaterial(aliveMaterial);
-                // SetRenderersActive(true);
+                SetRenderersActive(true);
+                SetRenderersAlpha(1f);
             }
         }
     }
@@ -116,7 +119,6 @@ public class PlayerState : NetworkBehaviour
         }
     }
 
-    /*
     // Utility: enable/disable renderers
     private void SetRenderersActive(bool active)
     {
@@ -181,7 +183,6 @@ public class PlayerState : NetworkBehaviour
             mat.renderQueue = -1;
         }
     }
-    */
 
     // Find the local player's PlayerState (viewer). Returns null if not found yet.
     private PlayerState GetLocalPlayerState()

@@ -1,21 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    [SerializeField] private GameObject kratos;
     private CharacterController controller;
+    private Animator lakadNiKratos;
     private Vector3 playerVelocity;
     private bool isGrounded;
     public float speed = 5f;
     public float gravity = -9.8f;
     public float jumpHeight = 3f;
 
+    // Networked walking flag (replicated to all clients)
+    private NetworkVariable<bool> isWalking = new NetworkVariable<bool>(
+        false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner
+    );
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        lakadNiKratos = kratos.GetComponent<Animator>();
+
+        lakadNiKratos.SetBool("NaglalakadBa", false);
+
+        // Make all players (including others) update their Animator when this changes
+        isWalking.OnValueChanged += (oldValue, newValue) =>
+        {
+            lakadNiKratos.SetBool("NaglalakadBa", newValue);
+        };
     }
 
     // Update is called once per frame
@@ -29,6 +46,15 @@ public class PlayerMovement : NetworkBehaviour
     public void ProcessMove (Vector2 input)
     {
         if (!IsOwner) return;
+
+        // Determine if player is actually walking
+        bool naglalakadNga = input.sqrMagnitude > 0.01f;
+
+        // Only update when state changes (prevents flicker)
+        if (isWalking.Value != naglalakadNga)
+        {
+            isWalking.Value = naglalakadNga;
+        }
 
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
