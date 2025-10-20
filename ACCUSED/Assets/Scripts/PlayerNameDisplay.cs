@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
@@ -5,6 +7,11 @@ using Unity.Collections;
 
 public class PlayerNameDisplay : NetworkBehaviour
 {
+    public static readonly List<PlayerNameDisplay> AllPlayers = new List<PlayerNameDisplay>();
+
+    public static event Action OnPlayerListChanged;
+    public static event Action OnPlayerNameChanged;
+
     public NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>(
         default,
         NetworkVariableReadPermission.Everyone,
@@ -15,17 +22,27 @@ public class PlayerNameDisplay : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        playerName.OnValueChanged += OnNameChanged;
+        AllPlayers.Add(this);
+        playerName.OnValueChanged += HandleNameChanged;
 
-        // Apply the current name immediately
-        OnNameChanged("", playerName.Value);
+        OnPlayerListChanged?.Invoke();
+
+        // Apply immediately
+        HandleNameChanged("", playerName.Value);
 
         if (IsOwner && IsClient)
         {
-            // Send our local name to the server
             string localName = UsernameInput.GetSavedName();
             SetNameServerRpc(localName);
         }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        AllPlayers.Remove(this);
+        playerName.OnValueChanged -= HandleNameChanged;
+
+        OnPlayerListChanged?.Invoke();
     }
 
     [ServerRpc]
@@ -34,16 +51,13 @@ public class PlayerNameDisplay : NetworkBehaviour
         playerName.Value = newName;
     }
 
-    private void OnNameChanged(FixedString32Bytes oldName, FixedString32Bytes newName)
+    private void HandleNameChanged(FixedString32Bytes oldName, FixedString32Bytes newName)
     {
         if (playerNameDisplay != null)
         {
             playerNameDisplay.text = newName.ToString();
         }
-    }
 
-    private new void OnDestroy()
-    {
-        playerName.OnValueChanged -= OnNameChanged;
+        OnPlayerNameChanged?.Invoke();
     }
 }

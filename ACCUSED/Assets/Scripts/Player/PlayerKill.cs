@@ -83,6 +83,14 @@ public class PlayerKill : Interactables
                     Debug.Log($"Marking player {targetId} as dead");
                     state.IsDead.Value = true;
                 }
+
+                // Disable their interactables (e.g. PlayerKill)
+                /* var interactables = targetObj.GetComponents<Interactables>();
+                foreach (var inter in interactables)
+                    inter.enabled = false; */
+
+                // Now spawn the dead body
+                // SpawnDeadBodyServerRpc(targetObj.transform.position, targetObj.transform.rotation);
             }
         }
     }

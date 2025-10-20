@@ -8,12 +8,15 @@ public class PlayerState : NetworkBehaviour
     [SerializeField] private Material aliveMaterial;
     [SerializeField] private Material deadMaterial;
     [SerializeField] private Material ghostMaterial;
+    [SerializeField] private GameObject deadBodyPrefab;
 
     // Server-owned state
     public NetworkVariable<bool> IsDead = new NetworkVariable<bool>(
         false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     private Renderer[] renderers;
+    private bool deadBodySpawned = false;
+    public static event System.Action OnAnyDeathChanged;
 
     private void Awake()
     {
@@ -41,12 +44,58 @@ public class PlayerState : NetworkBehaviour
         // Update appearance for the local viewer.
         ApplyVisibilityForLocalViewer(newValue);
 
+        if (IsServer && newValue && !deadBodySpawned)
+        {
+            SpawnDeadBodyServerRpc();
+            deadBodySpawned = true;
+        }
+
         // If this is the *local viewer* that just died,
         // reapply visibility for all other players too
         if (IsOwner && newValue == true)
         {
             ReapplyVisibilityForAllPlayers();
         }
+
+        // Notify meeting panel if active
+        var panel = FindObjectOfType<MeetingPanel>();
+        if (panel != null)
+        {
+            panel.RefreshPlayerList();
+        }
+
+        // ?? Notify meeting panel or others that death states changed
+        OnAnyDeathChanged?.Invoke();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnDeadBodyServerRpc(ServerRpcParams rpcParams = default)
+    {
+        if (deadBodyPrefab == null)
+        {
+            Debug.LogWarning("No dead body prefab assigned!");
+            return;
+        }
+
+        // Instantiate body at player position
+        GameObject body = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
+        var netObj = body.GetComponent<NetworkObject>();
+        if (netObj != null)
+        {
+            netObj.Spawn(); // syncs to all clients
+        }
+
+        // Optionally assign player data
+        var bodyScript = body.GetComponent<DeadBody>();
+        if (bodyScript != null)
+        {
+            var playerName = PlayerUtils.GetPlayerNameByClientId(OwnerClientId);
+            bodyScript.Setup(OwnerClientId, playerName);
+
+            Debug.Log($"[Server] Spawned dead body for {playerName}");
+        }
+
+        // Debug.Log($"Spawned dead body for {OwnerClientId}");
     }
 
     // Decide what the local viewer should see for THIS target player.
@@ -59,14 +108,15 @@ public class PlayerState : NetworkBehaviour
 
         bool viewerIsDead = localViewerState != null && localViewerState.IsDead.Value;
 
-        /* // If target is local player, you may want to always show (owner's own view),
+        // If target is local player, you may want to always show (owner's own view),
         // or handle differently. Below, owner always sees themselves normally.
         if (IsOwner)
         {
             // local player sees themselves normally (you can tweak this if you want)
-            SetMaterial(aliveMaterial);
+            SetMaterial(deadMaterial);
+            SetRenderersActive(false);
             return;
-        } */
+        }
 
         if (!viewerIsDead)
         {
