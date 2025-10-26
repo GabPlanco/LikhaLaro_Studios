@@ -10,7 +10,10 @@ public class PlayerInteract : NetworkBehaviour
     [SerializeField] private LayerMask mask;
     private PlayerUI playerUI;
     private InputManager inputManager;
-    
+
+    private Transform highlight;
+    private Transform selection;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,13 @@ public class PlayerInteract : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+
+        // Highlight
+        if (highlight != null)
+        {
+            highlight.gameObject.GetComponent<Outline>().enabled = false;
+            highlight = null;
+        }
 
         // sa gitna ng camera, may linya, palabas
         playerUI.UpdateText(string.Empty);
@@ -40,6 +50,26 @@ public class PlayerInteract : NetworkBehaviour
                 {
                     interactables.BaseInteract();
                 }
+            }
+
+            highlight = hitInfo.transform;
+            if (highlight.CompareTag("Selectable") && highlight != selection)
+            {
+                if (highlight.gameObject.GetComponent<Outline>() != null)
+                {
+                    highlight.gameObject.GetComponent<Outline>().enabled = true;
+                }
+                else
+                {
+                    Outline outline = highlight.gameObject.AddComponent<Outline>();
+                    outline.enabled = true;
+                    highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
+                    highlight.gameObject.GetComponent<Outline>().OutlineWidth = 7.0f;
+                }
+            }
+            else
+            {
+                highlight = null;
             }
         }
     }

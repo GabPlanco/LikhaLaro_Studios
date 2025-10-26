@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -45,6 +46,8 @@ public class PlayerMovement : NetworkBehaviour
 
     public void ProcessMove (Vector2 input)
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu") return;
+        if (SceneManager.GetActiveScene().name == "LoadingScene") return;
         if (!IsOwner) return;
 
         // Determine if player is actually walking

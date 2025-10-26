@@ -4432,7 +4432,7 @@ GameObject:
   - component: {fileID: 1100673511}
   m_Layer: 6
   m_Name: TestEmergency
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4833,7 +4833,7 @@ GameObject:
   - component: {fileID: 1235219048}
   m_Layer: 6
   m_Name: Door Button
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6154,7 +6154,7 @@ GameObject:
   - component: {fileID: 1424538935}
   m_Layer: 6
   m_Name: TestTask
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

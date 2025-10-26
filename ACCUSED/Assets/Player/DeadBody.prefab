@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3296982013435742768}
   m_Layer: 6
   m_Name: DeadBody
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,8 +82,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d030ec55b2c4b0549bcc9b303855bfd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName:
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0016: 0
+        byte0017: 0
+        byte0018: 0
+        byte0019: 0
+        byte0020: 0
+        byte0021: 0
+        byte0022: 0
+        byte0023: 0
+        byte0024: 0
+        byte0025: 0
+        byte0026: 0
+        byte0027: 0
+        byte0028: 0
+        byte0029: 0
   OwnerClientId: 0
-  PlayerName: 
 --- !u!136 &3296982013435742768
 CapsuleCollider:
   m_ObjectHideFlags: 0

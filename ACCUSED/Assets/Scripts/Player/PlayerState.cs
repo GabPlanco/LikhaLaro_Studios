@@ -57,16 +57,34 @@ public class PlayerState : NetworkBehaviour
             ReapplyVisibilityForAllPlayers();
         }
 
-        // Notify meeting panel if active
+        if (IsServer && newValue == true)
+        {
+            NotifyDeathClientRpc(OwnerClientId);
+        }
+
+
+        /* // Notify meeting panel if active
         var panel = FindObjectOfType<MeetingPanel>();
         if (panel != null)
         {
             panel.RefreshPlayerList();
-        }
+        } */
 
         // ?? Notify meeting panel or others that death states changed
         OnAnyDeathChanged?.Invoke();
     }
+
+    [ClientRpc]
+    private void NotifyDeathClientRpc(ulong deadClientId)
+    {
+        Debug.Log($"[Client] Received death update for client {deadClientId}");
+
+        // Force the meeting panel to update if it's active
+        var panel = FindObjectOfType<MeetingPanel>();
+        if (panel != null)
+            panel.RefreshPlayerList();
+    }
+
 
     [ServerRpc(RequireOwnership = false)]
     private void SpawnDeadBodyServerRpc(ServerRpcParams rpcParams = default)
