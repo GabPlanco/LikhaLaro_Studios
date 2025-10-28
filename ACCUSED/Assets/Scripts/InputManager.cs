@@ -29,6 +29,7 @@ public class InputManager : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+        if (MeetingPanel.meetingPanelIsActive == true) return;
 
         foreach (Touch touch in Input.touches)
         {

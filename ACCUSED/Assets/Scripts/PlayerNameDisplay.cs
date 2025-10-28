@@ -9,7 +9,7 @@ public class PlayerNameDisplay : NetworkBehaviour
 {
     public static readonly List<PlayerNameDisplay> AllPlayers = new List<PlayerNameDisplay>();
 
-    public static event Action OnPlayerListChanged;
+    // public static event Action OnPlayerListChanged;
     public static event Action OnPlayerNameChanged;
 
     public NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>(
@@ -25,7 +25,7 @@ public class PlayerNameDisplay : NetworkBehaviour
         AllPlayers.Add(this);
         playerName.OnValueChanged += HandleNameChanged;
 
-        OnPlayerListChanged?.Invoke();
+        // OnPlayerListChanged?.Invoke();
 
         // Apply immediately
         HandleNameChanged("", playerName.Value);
@@ -42,7 +42,7 @@ public class PlayerNameDisplay : NetworkBehaviour
         AllPlayers.Remove(this);
         playerName.OnValueChanged -= HandleNameChanged;
 
-        OnPlayerListChanged?.Invoke();
+        // OnPlayerListChanged?.Invoke();
     }
 
     [ServerRpc]

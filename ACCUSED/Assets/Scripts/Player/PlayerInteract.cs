@@ -26,6 +26,7 @@ public class PlayerInteract : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+        if (MeetingPanel.meetingPanelIsActive == true) return;
 
         // Highlight
         if (highlight != null)
@@ -45,14 +46,33 @@ public class PlayerInteract : NetworkBehaviour
             if (hitInfo.collider.GetComponent<Interactables>() != null) 
             {
                 Interactables interactables = hitInfo.collider.GetComponent<Interactables>();
+                highlight = interactables.transform;
                 playerUI.UpdateText(interactables.promptMessage);
+                if (highlight != selection)
+                {
+                    if (highlight.gameObject.GetComponent<Outline>() != null)
+                    {
+                        highlight.gameObject.GetComponent<Outline>().enabled = true;
+                    }
+                    else
+                    {
+                        Outline outline = highlight.gameObject.AddComponent<Outline>();
+                        outline.enabled = true;
+                        highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
+                        highlight.gameObject.GetComponent<Outline>().OutlineWidth = 7.0f;
+                    }
+                }
+                else
+                {
+                    highlight = null;
+                }
                 if (inputManager.onFeet.Interact.triggered)
                 {
                     interactables.BaseInteract();
                 }
             }
 
-            highlight = hitInfo.transform;
+            /* highlight = hitInfo.transform;
             if (highlight.CompareTag("Selectable") && highlight != selection)
             {
                 if (highlight.gameObject.GetComponent<Outline>() != null)
@@ -70,7 +90,7 @@ public class PlayerInteract : NetworkBehaviour
             else
             {
                 highlight = null;
-            }
+            } */
         }
     }
 }

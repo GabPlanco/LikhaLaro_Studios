@@ -16,7 +16,7 @@ public class PlayerState : NetworkBehaviour
 
     private Renderer[] renderers;
     private bool deadBodySpawned = false;
-    public static event System.Action OnAnyDeathChanged;
+    // public static event System.Action OnAnyDeathChanged;
 
     private void Awake()
     {
@@ -40,6 +40,9 @@ public class PlayerState : NetworkBehaviour
 
     private void OnIsDeadChanged(bool previousValue, bool newValue)
     {
+        // ?? Notify meeting panel or others that death states changed
+        // OnAnyDeathChanged?.Invoke();
+
         // Called on every client when this player's IsDead changes.
         // Update appearance for the local viewer.
         ApplyVisibilityForLocalViewer(newValue);
@@ -57,24 +60,19 @@ public class PlayerState : NetworkBehaviour
             ReapplyVisibilityForAllPlayers();
         }
 
-        if (IsServer && newValue == true)
+        /* if (IsServer && newValue == true)
         {
-            NotifyDeathClientRpc(OwnerClientId);
-        }
-
-
-        /* // Notify meeting panel if active
-        var panel = FindObjectOfType<MeetingPanel>();
-        if (panel != null)
-        {
-            panel.RefreshPlayerList();
+            // Notify meeting panel if active
+            Debug.Log($"[Client] Received death update for client {OwnerClientId}");
+            var panel = FindObjectOfType<MeetingPanel>();
+            if (panel != null)
+            {
+                panel.RefreshPlayerList();
+            }
         } */
-
-        // ?? Notify meeting panel or others that death states changed
-        OnAnyDeathChanged?.Invoke();
     }
 
-    [ClientRpc]
+    /* [ClientRpc]
     private void NotifyDeathClientRpc(ulong deadClientId)
     {
         Debug.Log($"[Client] Received death update for client {deadClientId}");
@@ -83,7 +81,7 @@ public class PlayerState : NetworkBehaviour
         var panel = FindObjectOfType<MeetingPanel>();
         if (panel != null)
             panel.RefreshPlayerList();
-    }
+    } */
 
 
     [ServerRpc(RequireOwnership = false)]
