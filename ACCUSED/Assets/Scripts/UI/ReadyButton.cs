@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using System.Collections;
 
 public class ReadyButton : MonoBehaviour
 {
@@ -45,21 +46,26 @@ public class ReadyButton : MonoBehaviour
     {
         // Host triggers loading scene first
         // SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);
-
         if (NetworkManager.Singleton.IsHost)
-        {
-            // Despawn existing players
-            foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
-            {
-                var player = client.PlayerObject;
-                if (player != null && player.IsSpawned)
-                {
-                    player.Despawn();
-                }
-            }
+            StartCoroutine(HostTransitionToGameScene());
+    }
 
-            // Host triggers scene change for everyone
-            NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    private IEnumerator HostTransitionToGameScene()
+    {
+        // Despawn existing players safely
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            var player = client.PlayerObject;
+            if (player != null && player.IsSpawned)
+            {
+                player.Despawn();
+            }
         }
+
+        // ?? Wait one frame to let Netcode sync the despawns
+        yield return null;
+
+        Debug.Log("[Host] Loading GameScene for all clients...");
+        NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 }

@@ -48,6 +48,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (SceneManager.GetActiveScene().name == "MainMenu") return;
         if (SceneManager.GetActiveScene().name == "LoadingScene") return;
+        if (MeetingPanel.meetingPanelIsActive == true) return;
         if (!IsOwner) return;
 
         // Determine if player is actually walking

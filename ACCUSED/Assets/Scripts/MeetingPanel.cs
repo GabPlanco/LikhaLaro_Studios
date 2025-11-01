@@ -14,39 +14,43 @@ public class MeetingPanel : MonoBehaviour
     [SerializeField] private Button sendButton;
     [SerializeField] private Transform chatContent;
     [SerializeField] private TMP_Text chatMessagePrefab;
+    [SerializeField] private GameObject emergencyMeetingDisplay;
+    [SerializeField] private GameObject bodyReportedDisplay;
 
     [Header("Player Slot Prefab")]
     [SerializeField] private GameObject playerSlotPrefab;
 
     private readonly List<PlayerSlot> playerSlots = new List<PlayerSlot>();
-    private Dictionary<string, PlayerSlot> slotMap = new Dictionary<string, PlayerSlot>();
+    private Dictionary<ulong, PlayerSlot> slotMap = new Dictionary<ulong, PlayerSlot>();
 
     // For testing vote tallies
     private readonly Dictionary<string, int> voteCounts = new Dictionary<string, int>();
 
+    public static bool meetingPanelIsActive = false;
+
     private void OnEnable()
     {
-        PlayerNameDisplay.OnPlayerListChanged += RefreshPlayerList;
-        PlayerNameDisplay.OnPlayerNameChanged += RefreshPlayerList;
-        PlayerState.OnAnyDeathChanged += UpdateDeadStatus;
+        // PlayerNameDisplay.OnPlayerListChanged += RefreshPlayerList;
+        // PlayerState.OnAnyDeathChanged += UpdateDeadStatus;
 
-        StartCoroutine(RefreshAfterDelay());
+        // StartCoroutine(RefreshAfterDelay());
 
-        // RefreshPlayerList(); // initial populate
+        RefreshPlayerList(); // initial populate
     }
 
     private void OnDisable()
     {
-        PlayerNameDisplay.OnPlayerListChanged -= RefreshPlayerList;
-        PlayerNameDisplay.OnPlayerNameChanged -= RefreshPlayerList;
-        PlayerState.OnAnyDeathChanged -= UpdateDeadStatus;
+        // PlayerNameDisplay.OnPlayerListChanged -= RefreshPlayerList;
+        // PlayerState.OnAnyDeathChanged -= UpdateDeadStatus;
+
+        StopCoroutine(TestCountdownSequence());
     }
 
-    private IEnumerator RefreshAfterDelay()
+    /* private IEnumerator RefreshAfterDelay()
     {
         yield return new WaitForSeconds(0.5f); // allow network vars to sync
         RefreshPlayerList();
-    }
+    } */
 
     private void Start()
     {
@@ -59,6 +63,30 @@ public class MeetingPanel : MonoBehaviour
         });
 
         // Start the test countdown sequence
+        // StartCoroutine(TestCountdownSequence());
+    }
+
+    public void BeginMeeting(bool isEmergency)
+    {
+        meetingPanelIsActive = true;
+
+        // Reset all votes and chat
+        voteCounts.Clear();
+
+        foreach (Transform child in chatContent)
+            Destroy(child.gameObject);
+
+        // Reset player UI
+        RefreshPlayerList();
+
+        // Reset countdown text
+        countdownText.text = "";
+
+        // Show proper labels or icons
+        emergencyMeetingDisplay?.SetActive(isEmergency);
+        bodyReportedDisplay?.SetActive(!isEmergency);
+
+        // Start the new countdown sequence
         StartCoroutine(TestCountdownSequence());
     }
 
@@ -98,28 +126,45 @@ public class MeetingPanel : MonoBehaviour
             ui.Setup(playerNames[i], OnVoteButtonPressed);
             ui.HideVoteButton();
             playerSlots.Add(ui);
-            slotMap[name] = ui;
+            slotMap[playerNames[i].ClientId] = ui;
         }
+
+        UpdateDeadStatus();
 
         // Resize the parent panel if needed (so scroll works)
         var parentRect = playerListPanel.GetComponent<RectTransform>();
         parentRect.sizeDelta = new Vector2(parentRect.sizeDelta.x, playerNames.Length * (slotHeight + spacing));
-
-        UpdateDeadStatus();
     }
 
     private void UpdateDeadStatus()
     {
+        Debug.Log("[MeetingPanel] --- UpdateDeadStatus() called ---");
+
         var allPlayers = FindObjectsOfType<PlayerState>();
+        Debug.Log($"[MeetingPanel] Found {allPlayers.Length} PlayerState objects.");
+
         foreach (var p in allPlayers)
         {
-            var nameComp = p.GetComponent<PlayerNameDisplay>();
-            if (nameComp == null) continue;
+            var nameComp = p.GetComponentInChildren<PlayerNameDisplay>();
+            if (nameComp == null)
+            {
+                Debug.LogWarning("[MeetingPanel] Skipping player with no name component.");
+                continue;
+            }
 
             string pname = nameComp.playerName.Value.ToString();
-            if (slotMap.ContainsKey(pname))
+            bool dead = p.IsDead.Value;
+            Debug.Log($"[MeetingPanel] Checking {pname}  ?  IsDead={dead}");
+
+            ulong cid = p.OwnerClientId;
+            if (slotMap.ContainsKey(cid))
             {
-                slotMap[pname].SetDead(p.IsDead.Value);
+                Debug.Log($"[MeetingPanel]   Updating slot for {pname}");
+                slotMap[cid].SetDead(p.IsDead.Value);
+            }
+            else
+            {
+                Debug.LogWarning($"[MeetingPanel]   No slot found for {pname}");
             }
         }
     }
@@ -137,7 +182,23 @@ public class MeetingPanel : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(message)) return;
 
+        if (chatMessagePrefab == null)
+        {
+            Debug.LogError("[MeetingPanel] chatMessagePrefab is null!");
+            return;
+        }
+        if (chatContent == null)
+        {
+            Debug.LogError("[MeetingPanel] chatContent has been destroyed!");
+            return;
+        }
+
         var chatLine = Instantiate(chatMessagePrefab, chatContent);
+        if (chatLine == null)
+        {
+            Debug.LogError("[MeetingPanel] Failed to instantiate chat line!");
+            return;
+        }
         chatLine.text = $"<b>{sender}:</b> {message}";
 
         Canvas.ForceUpdateCanvases();
@@ -169,6 +230,7 @@ public class MeetingPanel : MonoBehaviour
         }
 
         // Close the meeting panel
+        meetingPanelIsActive = false;
         gameObject.SetActive(false);
     }
 

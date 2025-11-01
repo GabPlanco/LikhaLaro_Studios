@@ -9,8 +9,8 @@ public class GameSceneManager : NetworkBehaviour
     public static GameSceneManager Instance;
 
     [SerializeField] GameObject meetingPanel;
-    [SerializeField] GameObject emergencyMeetingDisplay;
-    [SerializeField] GameObject bodyReportedDisplay;
+    // [SerializeField] GameObject emergencyMeetingDisplay;
+    // [SerializeField] GameObject bodyReportedDisplay;
 
     public GameObject playerPrefab;
 
@@ -94,10 +94,12 @@ public class GameSceneManager : NetworkBehaviour
         }
 
         meetingPanel?.SetActive(true);
-        emergencyMeetingDisplay?.SetActive(true);
-        bodyReportedDisplay?.SetActive(false);
+        var panel = meetingPanel.GetComponent<MeetingPanel>();
+        panel?.BeginMeeting(isEmergency: true);
+        // emergencyMeetingDisplay?.SetActive(true);
+        // bodyReportedDisplay?.SetActive(false);
 
-        ForceRefreshMeetingPanelClientRpc();
+        // ForceRefreshMeetingPanelClientRpc();
     }
 
     [ClientRpc]
@@ -115,11 +117,13 @@ public class GameSceneManager : NetworkBehaviour
         }
 
         meetingPanel.SetActive(true);
-        emergencyMeetingDisplay?.SetActive(false);
-        bodyReportedDisplay?.SetActive(true);
+        var panel = meetingPanel.GetComponent<MeetingPanel>();
+        panel?.BeginMeeting(isEmergency: false);
+        // emergencyMeetingDisplay?.SetActive(false);
+        // bodyReportedDisplay?.SetActive(true);
     }
 
-    [ClientRpc]
+    /* [ClientRpc]
     private void ForceRefreshMeetingPanelClientRpc()
     {
         if (meetingPanel != null && meetingPanel.activeInHierarchy)
@@ -127,7 +131,7 @@ public class GameSceneManager : NetworkBehaviour
             var mp = meetingPanel.GetComponent<MeetingPanel>();
             mp?.RefreshPlayerList();
         }
-    }
+    } */
 }
 
 public struct PlayerInfoData

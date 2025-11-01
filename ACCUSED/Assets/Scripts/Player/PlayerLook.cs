@@ -25,6 +25,7 @@ public class PlayerLook : NetworkBehaviour
     public void ProcessLook(Vector2 input)
     {
         if (!IsOwner) return;
+        if (MeetingPanel.meetingPanelIsActive == true) return;
 
         float mouseX = input.x;
         float mouseY = input.y;
