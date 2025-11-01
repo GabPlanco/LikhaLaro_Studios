@@ -2433,10 +2433,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4271,10 +4281,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New) (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9817,10 +9837,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New) (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9998,10 +10028,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New) (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10901,10 +10941,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New) (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11300,10 +11350,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New) (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12614,10 +12674,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12942,10 +13012,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3960743166516401289, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
         type: 3}
       propertyPath: m_Name
       value: WoodCylinder(New) (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4764ce55ae4f8924b9fc9374e16c41b1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
