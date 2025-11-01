@@ -16,6 +16,7 @@ public class PlayerState : NetworkBehaviour
 
     private Renderer[] renderers;
     private bool deadBodySpawned = false;
+    public static event System.Action<PlayerState> OnAnyPlayerDied;
     // public static event System.Action OnAnyDeathChanged;
 
     private void Awake()
@@ -58,6 +59,12 @@ public class PlayerState : NetworkBehaviour
         if (IsOwner && newValue == true)
         {
             ReapplyVisibilityForAllPlayers();
+        }
+
+        if (IsServer && newValue == true)
+        {
+            Debug.Log($"[PlayerState] Player {OwnerClientId} died — invoking global death event");
+            OnAnyPlayerDied?.Invoke(this);
         }
 
         /* if (IsServer && newValue == true)

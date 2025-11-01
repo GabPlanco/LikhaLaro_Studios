@@ -1,7 +1,6 @@
 using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GameProgressManager : NetworkBehaviour
 {
@@ -17,23 +16,20 @@ public class GameProgressManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        if (!IsServer) return;
+
+        PlayerState.OnAnyPlayerDied += OnAnyPlayerDeath;
         CurrentProgress.OnValueChanged += OnProgressChanged;
 
-        // Subscribe to death events for all players
-        foreach (var state in FindObjectsOfType<PlayerState>())
-        {
-            state.IsDead.OnValueChanged += OnAnyPlayerDeath;
-        }
+        Debug.Log("[GPM] Subscribed to global OnAnyPlayerDied event.");
     }
 
     private new void OnDestroy()
     {
-        CurrentProgress.OnValueChanged -= OnProgressChanged;
-
-        foreach (var state in FindObjectsOfType<PlayerState>())
-        {
-            state.IsDead.OnValueChanged -= OnAnyPlayerDeath;
-        }
+        if (IsServer)
+            PlayerState.OnAnyPlayerDied -= OnAnyPlayerDeath;
+        // If you subscribed via the global event above, it's good to unsubscribe — but that requires
+        // storing the delegate. For brevity, assume the game lifecycle ends at destroy.
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -62,31 +58,59 @@ public class GameProgressManager : NetworkBehaviour
         TaskProgressBar.Instance?.ShowWinScreen(true);
     }
 
-    // === Assassin win condition ===
-    private void OnAnyPlayerDeath(bool oldValue, bool newValue)
+    private void OnAnyPlayerDeath(PlayerState deadPlayer)
     {
-        if (!IsServer) return;
-
-        if (newValue == true) // a player just died
-        {
-            CheckAssassinWin();
-        }
+        Debug.Log($"[GPM] Received death event from {deadPlayer.OwnerClientId}");
+        CheckAssassinWin();
     }
 
+    // === Assassin win condition ===
+    // Called only on server
     private void CheckAssassinWin()
     {
-        // Get all players in the scene
-        var players = FindObjectsOfType<PlayerRoleComponent>();
+        if (!IsServer)
+        {
+            Debug.Log("[GPM] CheckAssassinWin called on non-server — ignoring.");
+            return;
+        }
 
-        bool anyInnocentAlive = players.Any(p =>
+        Debug.Log("[GPM] Running CheckAssassinWin()");
+
+        // Option A: authoritative approach using spawned player objects
+        var roleComponents = FindObjectsOfType<PlayerRoleComponent>();
+        Debug.Log($"[GPM] Found {roleComponents.Length} PlayerRoleComponent(s) in scene");
+
+        // Count alive innocents and alive assassins
+        int aliveInnocents = 0;
+        int aliveAssassins = 0;
+
+        foreach (var p in roleComponents)
         {
             var state = p.GetComponent<PlayerState>();
-            return p.Role == PlayerRole.Innocent && state != null && !state.IsDead.Value;
-        });
+            bool isDead = (state != null) ? state.IsDead.Value : false;
+            Debug.Log($"[GPM] Player OwnerClientId={p.OwnerClientId}, Role={p.Role}, IsDead={isDead}");
 
-        if (!anyInnocentAlive)
+            if (!isDead)
+            {
+                if (p.Role == PlayerRole.Innocent) aliveInnocents++;
+                else if (p.Role == PlayerRole.Assassin) aliveAssassins++;
+            }
+        }
+
+        Debug.Log($"[GPM] Alive counts => Innocents: {aliveInnocents}, Assassins: {aliveAssassins}");
+
+        // assassin wins if no innocents are alive
+        if (aliveInnocents == 0 && aliveAssassins > 0)
         {
+            Debug.Log("[GPM] Assassin win condition met (no alive innocents). Announcing assassin win.");
             AnnounceAssassinWinClientRpc();
+            return;
+        }
+
+        // Optional: edge case — if no players at all
+        if (roleComponents.Length == 0)
+        {
+            Debug.LogWarning("[GPM] No PlayerRoleComponents found during CheckAssassinWin — possible timing issue.");
         }
     }
 
