@@ -28,7 +28,7 @@ public class GameSceneManager : NetworkBehaviour
     {
         if (sceneName != "GameScene") return;
 
-        Debug.Log("[Server] All clients finished loading GameScene — spawning players.");
+        Debug.Log("[Server] All clients finished loading GameScene ï¿½ spawning players.");
         SpawnPlayers();
     }
 
@@ -70,7 +70,7 @@ public class GameSceneManager : NetworkBehaviour
 
     private Vector3 GetSpawnPoint()
     {
-        return new Vector3(Random.Range(-5f, 5f), 1, Random.Range(-5f, 5f));
+        return new Vector3(Random.Range(0f, 0f), 10, Random.Range(0f, 0f));
     }
 
     public void RegisterDeadBody(DeadBody body)
